@@ -55,7 +55,7 @@ new THREE.OBJLoader().load(
     loader.load(
       "https://threejs.org/examples/fonts/optimer_regular.typeface.json",
       function (font) {
-        const text = "Vietnamese Women's Day -THAONHI  Happy ";
+        const text = "Vietnamese Women's Day     Happy ";
 
         const textGroup = new THREE.Group();
         group.add(textGroup);
