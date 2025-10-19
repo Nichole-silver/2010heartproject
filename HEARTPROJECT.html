@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIET NAM</title>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/loaders/FontLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/geometries/TextGeometry.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      html {
+        transform: scale(1.7);
+      }
+
+      body {
+        margin: 0;
+        background-color: black;
+        overflow: hidden;
+      }
+
+      /* Giao diện màn hình chờ */
+      #welcome-screen {
+        position: fixed;
+        inset: 0;
+        background: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 1s ease;
+      }
+
+      #enterBtn {
+        background: #ffb6c1;
+        color: #222;
+        border: none;
+        padding: 20px 40px;
+        border-radius: 30px;
+        font-size: 1.2em;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 0 20px #ffb6c1;
+        transition: all 0.3s;
+      }
+
+      #enterBtn:hover {
+        background: #ff80a0;
+        transform: scale(1.05);
+      }
+
+      .hearts-overlay {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Màn hình chờ -->
+    <div id="welcome-screen">
+      <button id="enterBtn">💖 Mời quý cô ấn vào đây 💖</button>
+    </div>
+
+    <!-- Hiệu ứng trái tim -->
+    <script src="https://unpkg.com/css-doodle@0.15.3/css-doodle.min.js"></script>
+    <css-doodle class="hearts-overlay">
+      :doodle {
+        @grid: 1x500;
+        width: 100%;
+        height: 100%;
+      }
+
+      @size: @r(3px, 11);
+      @shape: heart;
+      background: @p(
+        rgba(255, 240, 240, 0.8),
+        rgba(255, 190, 200, 0.85),
+        rgba(255, 140, 160, 0.9),
+        rgba(255, 100, 130, 0.95),
+        rgba(255, 255, 255, 0.75)
+      );
+
+      opacity: @r(.3, .9);
+      position: absolute;
+      left: @r(0%, 100%);
+      top: -10vh;
+      animation:
+        fall @r(10s, 25s) cubic-bezier(.33, .11, .55, .99) infinite,
+        drift @r(4s, 9s) ease-in-out infinite;
+      animation-delay: @r(-25s, 0s);
+      transform:
+        translateY(-10vh)
+        translateZ(@r(-40px, 40px))
+        scale(@r(0.5, 0.9))
+        rotate(@r(-15deg, 15deg));
+
+      @keyframes fall {
+        0% {
+          transform:
+            translateY(-10vh)
+            translateZ(@r(-40px, 0px))
+            scale(@r(0.4, 0.7))
+            rotate(@r(-20deg, 20deg));
+          opacity: 0.2;
+        }
+        30% { opacity: 0.9; }
+        100% {
+          transform:
+            translateY(120vh)
+            translateZ(@r(20px, 80px))
+            scale(@r(0.8, 1.1))
+            rotate(@r(-360deg, 360deg));
+          opacity: 0;
+        }
+      }
+    </css-doodle>
+
+    <!-- Nhạc nền -->
+    <audio id="bg-music" src="music.mp3" loop muted></audio>
+
+    <script>
+      const enterBtn = document.getElementById("enterBtn");
+      const welcome = document.getElementById("welcome-screen");
+      const doodle = document.querySelector(".hearts-overlay");
+      const music = document.getElementById("bg-music");
+
+      enterBtn.addEventListener("click", () => {
+        // Bật nhạc
+        music.muted = false;
+        music.play().catch(err => console.log("Không thể phát nhạc:", err));
+
+        // Ẩn màn hình chờ
+        welcome.style.opacity = "0";
+        setTimeout(() => {
+          welcome.style.display = "none";
+          doodle.style.display = "block";
+        }, 1000);
+      });
+    </script>
+
+    <!-- Các thư viện Three.js -->
+    <script src="js/three.min.js"></script>
+    <script src="js/MeshSurfaceSampler.js"></script>
+    <script src="js/TrackballControls.js"></script>
+    <script src="js/simplex-noise.js"></script>
+    <script src="js/OBJLoader.js"></script>
+    <script src="js/gsap.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

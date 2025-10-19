@@ -1,0 +1,12 @@
+body {
+  background: #f9f7f4; /* trắng sữa, ánh hồng nhạt */
+  overflow: hidden;
+  margin: 0;
+}
+
+.hearts-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* tránh che hiệu ứng 3D */
+  z-index: 9999;        /* nổi lên trên cùng */
+}
